@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
+import { theme } from "@/theme";
 
 const index = () => {
   return (
@@ -14,6 +15,7 @@ const style = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: theme.colorWhite,
   },
 });
 
