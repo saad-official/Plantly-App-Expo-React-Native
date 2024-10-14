@@ -9,9 +9,16 @@ const Layout = () => {
         name="(tabs)"
         options={{
           headerShown: false,
+          animation: "fade",
         }}
       />
-      <Stack.Screen name="onboardibg" />
+      <Stack.Screen
+        name="onboarding"
+        options={{
+          headerShown: false,
+          animation: "fade",
+        }}
+      />
     </Stack>
   );
 };

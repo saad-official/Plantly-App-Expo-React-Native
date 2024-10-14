@@ -1,10 +1,12 @@
-import { View, Text } from "react-native";
+import { View, Text, Button } from "react-native";
 import React from "react";
+import { useRouter } from "expo-router";
 
 const Profile = () => {
+  const router = useRouter();
   return (
     <View>
-      <Text>Profile</Text>
+      <Button title="LET me" onPress={() => router.replace("/onboarding")} />
     </View>
   );
 };
