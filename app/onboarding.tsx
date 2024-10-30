@@ -3,6 +3,7 @@ import React from "react";
 import { useUserStore } from "@/store/userStore";
 import { useRouter } from "expo-router";
 import { theme } from "@/theme";
+import { PlantlyButton } from "@/components/plantly-button";
 
 const OnboardingScreen = () => {
   const toggleHasOnboarded = useUserStore(
@@ -16,7 +17,7 @@ const OnboardingScreen = () => {
   };
   return (
     <View style={style.container}>
-      <Button title="Let me in" onPress={handlePress} />
+      <PlantlyButton title="Let me in" onPress={handlePress} />
     </View>
   );
 };
