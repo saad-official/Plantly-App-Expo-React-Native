@@ -18,5 +18,4 @@ const style = StyleSheet.create({
     backgroundColor: theme.colorWhite,
   },
 });
-
 export default index;

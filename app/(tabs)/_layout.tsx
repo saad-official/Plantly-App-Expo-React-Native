@@ -1,7 +1,7 @@
-import { View, Text } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import React from "react";
-import { Redirect, Stack, Tabs } from "expo-router";
-import { Entypo } from "@expo/vector-icons";
+import { Link, Redirect, Stack, Tabs } from "expo-router";
+import { AntDesign, Entypo } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { theme } from "@/theme";
 import { useUserStore } from "@/store/userStore";
@@ -21,6 +21,13 @@ const Layout = () => {
           tabBarShowLabel: false,
           tabBarIcon: ({ size, color }) => (
             <Entypo name="leaf" size={size} color={color} />
+          ),
+          headerRight: () => (
+            <Link asChild href="/new">
+              <Pressable style={{ marginRight: 18 }} hitSlop={20}>
+                <AntDesign name="pluscircleo" size={24} color="green" />
+              </Pressable>
+            </Link>
           ),
         }}
       />
