@@ -1,4 +1,12 @@
-import { Text, StyleSheet, TextInput, Alert, View } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  TextInput,
+  Alert,
+  View,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
 import { theme } from "@/theme";
 import { PlantlyButton } from "@/components/plantly-button";
 import { useState } from "react";
@@ -6,12 +14,29 @@ import { PlantlyImage } from "@/components/plantly-image";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { usePlantStore } from "@/store/plantStore";
 import { useRouter } from "expo-router";
+import * as ImagePicker from "expo-image-picker";
 
 export default function NewScreen() {
   const router = useRouter();
+  const [imgUrl, setImageUrl] = useState<string>();
   const [name, setName] = useState<string>();
   const [days, setDays] = useState<string>();
   const addPlant = usePlantStore((state) => state.addPlant);
+
+  const handleChooseImage = async () => {
+    if (Platform.OS !== "web") {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
+      });
+
+      if (!result.canceled) {
+        setImageUrl(result.assets[0].uri);
+      }
+    }
+  };
 
   const handleSubmit = () => {
     if (!name) {
@@ -42,9 +67,13 @@ export default function NewScreen() {
       contentContainerStyle={styles.contentContainer}
       keyboardShouldPersistTaps="handled"
     >
-      <View style={styles.centered}>
-        <PlantlyImage />
-      </View>
+      <TouchableOpacity
+        style={styles.centered}
+        onPress={handleChooseImage}
+        activeOpacity={0.8}
+      >
+        <PlantlyImage imgUri={imgUrl} />
+      </TouchableOpacity>
       <Text style={styles.label}>Name</Text>
       <TextInput
         value={name}
@@ -90,5 +119,6 @@ const styles = StyleSheet.create({
   },
   centered: {
     alignItems: "center",
+    marginBottom: 24,
   },
 });
