@@ -3,10 +3,7 @@ import { theme } from "@/theme";
 import { PlantlyButton } from "@/components/plantly-button";
 import { useState } from "react";
 import { PlantlyImage } from "@/components/plantly-image";
-import {
-  KeyboardAwareFlatList,
-  KeyboardAwareScrollView,
-} from "react-native-keyboard-aware-scroll-view";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function NewScreen() {
   const [name, setName] = useState<string>();
