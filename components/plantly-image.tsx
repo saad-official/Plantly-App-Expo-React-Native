@@ -9,6 +9,7 @@ type Props = {
 export const PlantlyImage = ({ size, imgUri }: Props) => {
   const { width } = useWindowDimensions();
   const imgSize = size ?? Math.min(width / 1.5, 400);
+  console.log("iage", imgUri);
   return (
     <Image
       source={imgUri ? { uri: imgUri } : require("@/assets/images/plantly.png")}

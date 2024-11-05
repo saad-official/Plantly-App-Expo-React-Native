@@ -1,18 +1,24 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
+import * as FIleSystem from "expo-file-system";
 
 export type PlantType = {
   id: string;
   name: string;
   wateringFrequencyDays: number;
   lastWateredAtTimestamp?: number;
+  imgUri?: string;
 };
 
 type PlantsState = {
   nextId: number;
   plants: PlantType[];
-  addPlant: (name: string, wateringFrequencyDays: number) => void;
+  addPlant: (
+    name: string,
+    wateringFrequencyDays: number,
+    imgUri?: string
+  ) => void;
   removePlant: (plantId: string) => void;
   waterPlant: (plantId: string) => void;
 };
@@ -22,7 +28,21 @@ export const usePlantStore = create(
     (set) => ({
       plants: [],
       nextId: 1,
-      addPlant: (name: string, wateringFrequencyDays: number) => {
+      addPlant: async (
+        name: string,
+        wateringFrequencyDays: number,
+        imgUri?: string
+      ) => {
+        const savedImageUrl =
+          FIleSystem.documentDirectory +
+          `${new Date().getTime()}-${imgUri?.split("/").slice(-1)[0]}`;
+
+        if (imgUri) {
+          await FIleSystem.copyAsync({
+            from: imgUri,
+            to: savedImageUrl,
+          });
+        }
         return set((state) => {
           return {
             ...state,
@@ -32,6 +52,7 @@ export const usePlantStore = create(
                 id: String(state.nextId),
                 name,
                 wateringFrequencyDays,
+                imgUri: imgUri ? savedImageUrl : undefined,
               },
               ...state.plants,
             ],

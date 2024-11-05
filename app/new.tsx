@@ -57,7 +57,7 @@ export default function NewScreen() {
       );
     }
 
-    addPlant(name, Number(days));
+    addPlant(name, Number(days), imgUrl);
     router.navigate("/");
   };
 
